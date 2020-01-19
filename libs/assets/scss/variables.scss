@@ -1,0 +1,24 @@
+$spacer: 1rem;
+$spacer-x: 1rem;
+$spacer-y: 1rem;
+$active: rgba(255, 255, 255, 0.1);
+$light: #f8f8f8;
+$grey: #424242;
+$dark: #254879;
+$black: #2a2b3c;
+$white: #ffffff;
+$status: #F0F6FF;
+
+$app-theme: mat-light-theme(
+  $p,
+  $a,
+  $w
+);
+
+@include angular-material-theme($app-theme);
+
+$primary: map-get($app-theme, primary);
+$accent: map-get($app-theme, accent);
+$warn: map-get($app-theme, warn);
+$foreground: map-get($app-theme, foreground);
+$background: map-get($app-theme, background);
