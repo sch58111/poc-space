@@ -18,5 +18,6 @@
       "paths": {
       }
     },
+    "include": ["./apps/poc-mobile/src/main.ts"],
     "exclude": ["node_modules", "tmp"]
 }

@@ -6,5 +6,5 @@ module.exports = (originalAngularConfig, env, comp) => {
   console.log(comp);
   console.log(app.nativescript.id);
   console.log(env);
-  return createNSConfig({...env, android: true, appPath: 'apps/poc-mobile/src'});
+  return createNSConfig({...env, ios: true, appPath: 'apps/poc-mobile/src'});
 };

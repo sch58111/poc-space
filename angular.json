@@ -286,7 +286,7 @@
             "customWebpackConfig": {
               "path": "./customWebpackConfig/mobile.js"
             },
-            "outputPath": "platforms/android/app/src/main/assets/app",
+            "outputPath": "platforms/ios/pocspace/app",
             "index": "apps/poc-mobile/src/index.html",
             "main": "apps/poc-mobile/src/main.ts",
             "tsConfig": "apps/poc-mobile/tsconfig.tns.json",
