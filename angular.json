@@ -312,7 +312,6 @@
                 },
                 "apps/poc-mobile/src/assets"
               ],
-              "styles": ["apps/poc-mobile/src/styles.scss"],
               "customWebpackConfig": {
                 "path": "./customWebpackConfig/company1-mobile.js"
               }

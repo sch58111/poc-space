@@ -16,13 +16,36 @@ const TerserPlugin = require("terser-webpack-plugin");
 const { getAngularCompilerPlugin } = require("nativescript-dev-webpack/plugins/NativeScriptAngularCompilerPlugin");
 const hashSalt = Date.now().toString();
 
+//ADDED
+const fs = require('fs');
+const path = require('path');
+// END ADDED
+
 module.exports = env => {
+    /* ADDED STUFF */
+    const company = "company1";
+    const appName = "poc-mobile";
+
+    const vars = fs.existsSync(
+        `libs/assets/${company}/${appName}/scss/variables.scss`
+    )
+    ? path.resolve(
+        __dirname,
+        `libs/assets/${company}/${appName}/scss/variables.scss`
+        )
+    : path.resolve(
+        __dirname,
+        `libs/assets/${company}/generic/scss/variables.scss`
+        );
+
+
+    /* END  ADDED STUFF */
+
     // Add your custom Activities, Services and other Android app components here.
     const appComponents = [
         "tns-core-modules/ui/frame",
         "tns-core-modules/ui/frame/activity",
     ];
-
     const platform = env && (env.android && "android" || env.ios && "ios");
     if (!platform) {
         throw new Error("You need to provide a target platform!");
@@ -274,7 +297,34 @@ module.exports = env => {
 
                 // Angular components reference css files and their imports using raw-loader
                 { test: /\.css$/, exclude: /[\/|\\]app\.css$/, use: "raw-loader" },
-                { test: /\.scss$/, exclude: /[\/|\\]app\.scss$/, use: ["raw-loader", "resolve-url-loader", "sass-loader"] },
+                    
+                { test: /\.scss$/, exclude: /[\/|\\]app\.scss$/, use: [
+                    "raw-loader", 
+                    "resolve-url-loader", 
+                    "sass-loader",
+                    {   
+                        // ADDED 
+                        loader: 'sass-resources-loader',
+                        options: {
+                          resources: [
+                            path.resolve(
+                              __dirname,
+                              `libs/assets/scss/material.scss`
+                            ), // dependencies first
+                            vars, // company-specific variables
+                            path.resolve(
+                              __dirname,
+                              `libs/assets/scss/variables.scss`
+                            ), // creating them with company colors & more
+                            path.resolve(
+                              __dirname,
+                              `libs/assets/${company}/${appName}/scss/**/*.scss`
+                            ) // load app-specific scss
+                          ]
+                        }
+                        // END ADDED 
+                    }                    
+                ] },
 
                 {
                     test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
